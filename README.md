@@ -52,7 +52,6 @@ The system currently supports **45 disease classes** across **14 different crops
 | 📊 **Personal Dashboard** | View all uploaded images and previous detections |
 | 🗑️ **Image Management** | Delete images from personal history |
 | 📈 **Confidence Visualization** | See top predictions with confidence percentages |
-| 📥 **Report Download** | Download detailed analysis reports |
 
 ### For System Administrators
 | Feature | Description |
@@ -209,37 +208,6 @@ The model can detect diseases in the following **14 crops** with **45 distinct c
 
 ---
 
-## 🏗️ System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         User Browser                            │
-│                    (React Frontend - Vercel)                    │
-└─────────────────────────────┬───────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      API Gateway (Backend)                      │
-│                    Node.js/Express - Port 5000                  │
-├─────────────────────────────────────────────────────────────────┤
-│  • Authentication (JWT)     • Image Upload (Multer)            │
-│  • User Management          • Advisory Retrieval                │
-│  • Image Metadata Storage   • MongoDB Connection                │
-└─────────────────────────────┬───────────────────────────────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│    MongoDB      │ │   File System   │ │  FastAPI/ML    │
-│   Database      │ │   (Uploads)     │ │    Service     │
-│ • Users         │ │ • User Images   │ │ • Model Loading│
-│ • Images Meta   │ │ • Predictions   │ │ • Inference    │
-│ • Advisory      │ │                 │ │ • Advisory     │
-└─────────────────┘ └─────────────────┘ └─────────────────┘
-```
-
----
-
 ## 💻 Installation & Setup
 
 ### Prerequisites
@@ -283,8 +251,7 @@ npm install
 
 Create `.env` file:
 ```env
-VITE_SERVER_URL=http://localhost:5000
-VITE_FASTAPI_URL=http://localhost:8000
+VITE_API_BASE_URL=http://localhost:5000
 ```
 
 Start development server:
